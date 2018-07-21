@@ -7,13 +7,24 @@ $('document').ready(function(){
 		$(window).resize(function(){
 			 vw = $(window).width()/2;
 			$('#b1,#b2,#b3,#b4,#b5,#b6,#b7').stop();
-			$('#b11').animate({top:240, left: vw-350},500);
-			$('#b22').animate({top:240, left: vw-250},500);
-			$('#b33').animate({top:240, left: vw-150},500);
-			$('#b44').animate({top:240, left: vw-50},500);
-			$('#b55').animate({top:240, left: vw+50},500);
-			$('#b66').animate({top:240, left: vw+150},500);
-			$('#b77').animate({top:240, left: vw+250},500);
+
+			if ($(window).width() <= 480) {
+				$('#b11').animate({top:240, left: vw-170},1000);
+				$('#b22').animate({top:240, left: vw-120},1000);
+				$('#b33').animate({top:240, left: vw-70},1000);
+				$('#b44').animate({top:240, left: vw-20},1000);
+				$('#b55').animate({top:240, left: vw+30},1000);
+				$('#b66').animate({top:240, left: vw+80},1000);
+				$('#b77').animate({top:240, left: vw+130},1000);
+			} else {
+				$('#b11').animate({top:240, left: vw-300},1000);
+				$('#b22').animate({top:240, left: vw-200},1000);
+				$('#b33').animate({top:240, left: vw-100},1000);
+				$('#b44').animate({top:240, left: vw-0},1000);
+				$('#b55').animate({top:240, left: vw+100},1000);
+				$('#b66').animate({top:240, left: vw+200},1000);
+				$('#b77').animate({top:240, left: vw+250},1000);
+			}
 		});
 
 	$('#turn_on').click(function(){
@@ -28,8 +39,8 @@ $('document').ready(function(){
 			$('#play').fadeIn('slow');
 		});
 	});
+	var audio = $('.song')[0];
 	$('#play').click(function(){
-		var audio = $('.song')[0];
         audio.play();
         $('#bulb_yellow').addClass('bulb-glow-yellow-after');
 		$('#bulb_red').addClass('bulb-glow-red-after');
@@ -150,15 +161,29 @@ $('document').ready(function(){
 		$('#b5').attr('id','b55')
 		$('#b6').attr('id','b66')
 		$('#b7').attr('id','b77')
-		$('#b11').animate({top:240, left: vw-350},500);
-		$('#b22').animate({top:240, left: vw-250},500);
-		$('#b33').animate({top:240, left: vw-150},500);
-		$('#b44').animate({top:240, left: vw-50},500);
-		$('#b55').animate({top:240, left: vw+50},500);
-		$('#b66').animate({top:240, left: vw+150},500);
-		$('#b77').animate({top:240, left: vw+250},500);
+
+		if ($(window).width() <= 480) {
+			$('#b11').animate({top:240, left: vw-170},1000);
+			$('#b22').animate({top:240, left: vw-120},1000);
+			$('#b33').animate({top:240, left: vw-70},1000);
+			$('#b44').animate({top:240, left: vw-20},1000);
+			$('#b55').animate({top:240, left: vw+30},1000);
+			$('#b66').animate({top:240, left: vw+80},1000);
+			$('#b77').animate({top:240, left: vw+130},1000);
+		} else {
+			$('#b11').animate({top:240, left: vw-300},1000);
+			$('#b22').animate({top:240, left: vw-200},1000);
+			$('#b33').animate({top:240, left: vw-100},1000);
+			$('#b44').animate({top:240, left: vw-0},1000);
+			$('#b55').animate({top:240, left: vw+100},1000);
+			$('#b66').animate({top:240, left: vw+200},1000);
+			$('#b77').animate({top:240, left: vw+250},1000);
+		}
+
 		$('.balloons').css('opacity','0.9');
 		$('.balloons h2').fadeIn(3000);
+		$('.ss-message').fadeIn('slow');
+		$('.cake').fadeOut('slow');
 		$(this).fadeOut('slow').delay(3000).promise().done(function(){
 			$('#story').fadeIn('slow');
 		});
@@ -168,23 +193,28 @@ $('document').ready(function(){
 		$(this).fadeOut('slow');
 		$('.cake').fadeOut('fast').promise().done(function(){
 			$('.message').fadeIn('slow');
+			$('.ss-message').fadeOut('fast');
 		});
 		
 		var i;
+		var message_length = $('.message p').length;
 
 		function msgLoop (i) {
-			$("p:nth-child("+i+")").fadeOut('slow').delay(800).promise().done(function(){
+			$(".message p:nth-child("+i+")").fadeOut('slow').delay(1300).promise().done(function(){
 			i=i+1;
-			$("p:nth-child("+i+")").fadeIn('slow').delay(1000);
-			if(i==50){
-				$("p:nth-child(49)").fadeOut('slow').promise().done(function () {
+			$(".message p:nth-child("+i+")").fadeIn('slow').delay(1500);
+			if(i==message_length){
+				$(`.message p:nth-child(${message_length})`).fadeOut('slow').promise().done(function () {
+					$('.balloons').fadeOut('slow');
+					audio.pause();
+					audio.currentTime = 0;
 					$('.cake').fadeIn('fast');
 				});
 				
 			}
 			else{
 				msgLoop(i);
-			}			
+			}	
 
 		});
 			// body...
