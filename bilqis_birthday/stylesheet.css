@@ -1336,4 +1336,11 @@ button::-moz-focus-inner {
 	.row.bulb-row {
 		margin-left: -40px;
 	}
+	.cake-cover {
+		margin-top: 32px;
+	}
+	.message p,
+	.ss-message p {
+		font-size: 24px;
+	}
 }
