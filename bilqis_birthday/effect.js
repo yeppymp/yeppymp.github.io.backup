@@ -9,21 +9,21 @@ $('document').ready(function(){
 			$('#b1,#b2,#b3,#b4,#b5,#b6,#b7').stop();
 
 			if ($(window).width() <= 480) {
-				$('#b11').animate({top:240, left: vw-170},1000);
-				$('#b22').animate({top:240, left: vw-120},1000);
-				$('#b33').animate({top:240, left: vw-70},1000);
-				$('#b44').animate({top:240, left: vw-20},1000);
-				$('#b55').animate({top:240, left: vw+30},1000);
-				$('#b66').animate({top:240, left: vw+80},1000);
-				$('#b77').animate({top:240, left: vw+130},1000);
+				$('#b11').animate({top:200, left: vw-170},1000);
+				$('#b22').animate({top:200, left: vw-120},1000);
+				$('#b33').animate({top:200, left: vw-70},1000);
+				$('#b44').animate({top:200, left: vw-20},1000);
+				$('#b55').animate({top:200, left: vw+30},1000);
+				$('#b66').animate({top:200, left: vw+80},1000);
+				$('#b77').animate({top:200, left: vw+130},1000);
 			} else {
-				$('#b11').animate({top:240, left: vw-300},1000);
-				$('#b22').animate({top:240, left: vw-200},1000);
-				$('#b33').animate({top:240, left: vw-100},1000);
-				$('#b44').animate({top:240, left: vw-0},1000);
-				$('#b55').animate({top:240, left: vw+100},1000);
-				$('#b66').animate({top:240, left: vw+200},1000);
-				$('#b77').animate({top:240, left: vw+250},1000);
+				$('#b11').animate({top:200, left: vw-300},1000);
+				$('#b22').animate({top:200, left: vw-200},1000);
+				$('#b33').animate({top:200, left: vw-100},1000);
+				$('#b44').animate({top:200, left: vw-0},1000);
+				$('#b55').animate({top:200, left: vw+100},1000);
+				$('#b66').animate({top:200, left: vw+200},1000);
+				$('#b77').animate({top:200, left: vw+250},1000);
 			}
 		});
 
@@ -39,9 +39,12 @@ $('document').ready(function(){
 			$('#play').fadeIn('slow');
 		});
 	});
-	var audio = $('.song')[0];
+
+	var birthday_song = $('.song')[0];
+	var applause_effect = $('.song.applause')[0];
+	
 	$('#play').click(function(){
-        audio.play();
+        birthday_song.play();
         $('#bulb_yellow').addClass('bulb-glow-yellow-after');
 		$('#bulb_red').addClass('bulb-glow-red-after');
 		$('#bulb_blue').addClass('bulb-glow-blue-after');
@@ -163,21 +166,21 @@ $('document').ready(function(){
 		$('#b7').attr('id','b77')
 
 		if ($(window).width() <= 480) {
-			$('#b11').animate({top:240, left: vw-170},1000);
-			$('#b22').animate({top:240, left: vw-120},1000);
-			$('#b33').animate({top:240, left: vw-70},1000);
-			$('#b44').animate({top:240, left: vw-20},1000);
-			$('#b55').animate({top:240, left: vw+30},1000);
-			$('#b66').animate({top:240, left: vw+80},1000);
-			$('#b77').animate({top:240, left: vw+130},1000);
+			$('#b11').animate({top:200, left: vw-170},1000);
+			$('#b22').animate({top:200, left: vw-120},1000);
+			$('#b33').animate({top:200, left: vw-70},1000);
+			$('#b44').animate({top:200, left: vw-20},1000);
+			$('#b55').animate({top:200, left: vw+30},1000);
+			$('#b66').animate({top:200, left: vw+80},1000);
+			$('#b77').animate({top:200, left: vw+130},1000);
 		} else {
-			$('#b11').animate({top:240, left: vw-300},1000);
-			$('#b22').animate({top:240, left: vw-200},1000);
-			$('#b33').animate({top:240, left: vw-100},1000);
-			$('#b44').animate({top:240, left: vw-0},1000);
-			$('#b55').animate({top:240, left: vw+100},1000);
-			$('#b66').animate({top:240, left: vw+200},1000);
-			$('#b77').animate({top:240, left: vw+250},1000);
+			$('#b11').animate({top:200, left: vw-300},1000);
+			$('#b22').animate({top:200, left: vw-200},1000);
+			$('#b33').animate({top:200, left: vw-100},1000);
+			$('#b44').animate({top:200, left: vw-0},1000);
+			$('#b55').animate({top:200, left: vw+100},1000);
+			$('#b66').animate({top:200, left: vw+200},1000);
+			$('#b77').animate({top:200, left: vw+250},1000);
 		}
 
 		$('.balloons').css('opacity','0.9');
@@ -206,9 +209,10 @@ $('document').ready(function(){
 			if(i==message_length){
 				$(`.message p:nth-child(${message_length})`).fadeOut('slow').promise().done(function () {
 					$('.balloons').fadeOut('slow');
-					audio.pause();
-					audio.currentTime = 0;
+					birthday_song.pause();
+					birthday_song.currentTime = 0;
 					$('.cake').fadeIn('fast');
+					$('#blow_candle').fadeIn('slow');
 				});
 				
 			}
@@ -222,6 +226,12 @@ $('document').ready(function(){
 		
 		msgLoop(0);
 		
+	});
+
+	$('#blow_candle').click(function() {
+		$('.fuego').fadeOut('slow');
+		$(this).fadeOut('slow');
+		applause_effect.play();
 	});
 });
 
