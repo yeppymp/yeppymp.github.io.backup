@@ -237,7 +237,7 @@ $('document').ready(function(){
 		$('body').css({ 'background-color': '#fff' });
 		$('.container:not(.finish)').css({ 'display': 'none' });
 		$(this).fadeOut('slow').promise().done(function () {
-			$('.container.finish').fadeIn('slow');
+			$('.container.finish').fadeIn('slow').css({ 'display': 'flex !important' });
 		});
 	});
 });
