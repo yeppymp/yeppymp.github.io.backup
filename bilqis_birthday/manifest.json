@@ -38,6 +38,6 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/index.html",
+    "start_url": "/bilqis_birthday/index.html",
     "display": "standalone"
 }
