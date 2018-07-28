@@ -1273,7 +1273,7 @@ audio {
 	bottom: 0;
 	padding:10px 0px 10px 0px;
 }
-#play, #bannar_coming, #balloons_flying,#cake_fadein,#light_candle,#wish_message,#story, #blow_candle {
+#play, #bannar_coming, #balloons_flying,#cake_fadein,#light_candle,#wish_message,#story, #blow_candle, #finish_btn {
 	display: none;
 }
 

@@ -1,6 +1,6 @@
 $(window).load(function(){
 	$('.loading').fadeOut('fast');
-	$('.container').fadeIn('fast');
+	$('.container:not(.finish)').fadeIn('fast');
 });
 $('document').ready(function(){
 		var vw;
@@ -212,8 +212,33 @@ $('document').ready(function(){
 
 	$('#blow_candle').click(function() {
 		$('.fuego').fadeOut('slow');
-		$(this).fadeOut('slow');
 		applause_effect.play();
+		$(this).fadeOut('slow').fadeOut('slow').promise().done(function () {
+			$('#finish_btn').fadeIn('slow');
+		});
+	});
+
+	$('#finish_btn').click(function() {
+		$('.cake').fadeOut('fast');
+		$('#bulb_yellow').removeClass('bulb-glow-yellow-after');
+		$('#bulb_red').removeClass('bulb-glow-red-after');
+		$('#bulb_blue').removeClass('bulb-glow-blue-after');
+		$('#bulb_green').removeClass('bulb-glow-green-after');
+		$('#bulb_pink').removeClass('bulb-glow-pink-after');
+		$('#bulb_orange').removeClass('bulb-glow-orange-after');
+		$('body').removeClass('peach-after');
+		$('#bulb_yellow').removeClass('bulb-glow-yellow');
+		$('#bulb_red').removeClass('bulb-glow-red');
+		$('#bulb_blue').removeClass('bulb-glow-blue');
+		$('#bulb_green').removeClass('bulb-glow-green');
+		$('#bulb_pink').removeClass('bulb-glow-pink');
+		$('#bulb_orange').removeClass('bulb-glow-orange');
+		$('.bannar').removeClass('bannar-come');
+		$('body').css({ 'background-color': '#fff' });
+		$('.container:not(.finish)').css({ 'display': 'none' });
+		$(this).fadeOut('slow').promise().done(function () {
+			$('.container.finish').fadeIn('slow');
+		});
 	});
 });
 
