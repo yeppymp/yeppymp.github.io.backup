@@ -24,7 +24,7 @@
 ------------------------------------------------------------------*/
 html,
 body {
-  overflow: hidden;
+  overflow: auto;
 }
 
 html, html a, body {
