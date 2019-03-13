@@ -19,24 +19,19 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-	<link rel="manifest" href="manifest.json">
-
-	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/stylesheet.css">
-	<link rel="stylesheet" type="text/css" href="./css/loading.css">
-	<link rel="stylesheet/less" href="./css/cake.less">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="loading.css">
+	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'> -->
+	<link rel="stylesheet/less" href="cake.less">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script>
 </head>
 
 <body>
 	<div class="loading"></div>
 	<audio class="song" controls loop>
-		<source src="./backsound/hbd.mp3"></source>
-		Browser yang kamu pakai tidak bisa memutar musik! Cobalah menggunakan Google Chrome atau Mozilla Firefox.
-	</audio>
-	<audio class="song applause" controls>
-		<source src="./backsound/applause.mp3"></source>
+        <source src="hbd.mp3"></source>
 		Browser yang kamu pakai tidak bisa memutar musik! Cobalah menggunakan Google Chrome atau Mozilla Firefox.
     </audio>
     <div class="balloons text-center" id="b1">
@@ -52,18 +47,21 @@
     	<h2 style="color:#8FAD00;">Q</h2>
     </div>
 	<div class="balloons text-center" id="b5">
-		<h2 style="color:#8377E4;">I</h2>
+    	<h2 style="color:#8377E4;">I</h2>
     </div>
     <div class="balloons text-center" id="b6">
     	<h2 style="color:#99C96A;">S</h2>
     </div>
+    <!-- <div class="balloons text-center" id="b7">
+    	<h2 style="color:#20CFB4;">B</h2>
+    </div> -->
 
-    <img src="./img/Balloon-Border.png" width="100%" class="balloon-border">
+    <img src="Balloon-Border.png" width="100%" class="balloon-border">
  
 
 	<div class="container">
 		
-		<div class="row bulb-row">
+		<div class="row">
 			<div class="col-md-2 col-xs-2 bulb-holder">
 				<div class="bulb" id="bulb_yellow"></div>
 			</div>
@@ -85,9 +83,12 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<img src="./img/banner.png" class="bannar">
+				<img src="banner.png" class="bannar">
 			</div>
 		</div>
+		<!-- <div class="row message">
+			<div class="col-md-12"><p>Khushbu</p></div>
+		</div> -->
 		<div class="row cake-cover">
 			<div class="col-md-12 texr-center">
 				<div class="cake">
@@ -103,114 +104,99 @@
 				</div>
 			</div>
 		</div>
-		<div class="row ss-message">
-			<div class="col-md-12">
-				<p>Happy Sweet Seventeen &#10084;</p>
-			</div>
-		</div>
 		<div class="row message">
 			<div class="col-md-12">
-				<p>Hari ini adalah...</p>
-				<p>hari indah seperti hari lainnya</p>
-				<p>kamu pun menyadari nya</p>
-				<p>tahun yang lalu sudah berakhir</p>
-				<p>hanya dalam sekejap mata</p>
-				<p><strong>bagaimanapun</strong></p>
-				<p>Kamu harus tahu...</p>
-				<p>hari ini hari paling spesial</p>
-				<p>sangat sangat spesial buat kamu</p>
-				<p>Aku pun berharap mewarnainya...</p>
-				<p>perayaan yang terbaik dariku</p>
-				<p>dan biarkan aku berbagi...</p>
-				<p>sebuah kebahagiaan kepadamu</p>
-				<p>Aku membuat semua ini...</p>
-				<p>sebagai ucapan ulang tahun untukmu</p>
-				<p>terimakasih untuk waktunya</p>
-				<p>terimakasih untuk kehadiranmu dihidupku</p>
-				<p>terimakasih untuk segalanya</p>
-				<p>Aku berharap kamu yang terbaik</p>
-				<p>Semoga hari harimu dimudahkan</p>
-				<p>Semoga semua yang kau inginkan tercapai</p>
-				<p>Ingatlah</p>
-				<p>Ambisimu</p>
-				<p>hidupmu seperti burung yang bebas...</p>
-				<p>terbang tinggi dilangit yang indah</p>
-				<p>sekarang semuanya berbeda...</p>
-				<p>kisah nyata tentang kehidupan</p>
-				<p>hanyalah bagaimana kita memulai</p>
-				<p>memang..</p>
-				<p>memang hidup ini tak semudah yang kita kira</p>
-				<p>tapi...</p>
-				<p>jangan menyerah</p>
-				<p>jangan takut</p>
-				<p>karena...</p>
-				<p>kamu ga sendirian di dunia ini</p>
-				<p>karena...</p>
-				<p>kita akan melalui nya bersama &#10084;</p>
-				<p>semoga...</p>
-				<p>tahun ini akan lebih baik!</p>
-				<p>dan aku berharap</p>
-				<p>kamu akan menemukan kebahagiaan...</p>
-				<p>kebahagiaan sepanjang waktu</p>
-				<p>tetaplah semangatttt</p>
-				<p>nikmati setiap momen...</p>
-				<p>untuk kehidupanmu saat ini</p>
-				<p>beri dunia lebih banyak senyuman</p>
-				<p>jadikan itu momen terbaik..</p>
-				<p>aku ingin berharap padamu satu hal</p>
-				<p>jangan bersedih akan jarak kita</p>
-				<p>karena kamu akan selalu ada dihati</p>
-				<p>karena kamu akan selalu ku nanti</p>
-				<p>karena kamu akan selalu ku rindukan</p>
-				<p>dan yang terkahir...</p>
-				<p>semoga kamu bahagia yaa</p>
-				<p>atas ucapan sederhanaku ini</p>
-				<p>dan yang terpenting</p>
-				<p>aku sangat mencintaimu! &#10084;</p>
+				<p>Today is...</p>
+				<p>as beautiful as other days</p>
+				<p>but you realize</p>
+				<p>another year has gone</p>
+				<p>in a blink of the eyes</p>
+				<p><strong>however</strong></p>
+				<p>Do you know..?</p>
+				<p>today is just special</p>
+				<p>so special to you</p>
+				<p>that's why</p>
+				<p>Let's make it...</p>
+				<p>the best celebration ever</p>
+				<p>and let me share...</p>
+				<p>a piece of happiness to you</p>
+				<p>I made all this...</p>
+				<p>as a birthday present to you</p>
+				<p>thanks for being there</p>
+				<p>thanks for the friendship we made</p>
+				<p>thanks for everything</p>
+				<p>I wish you all the best</p>
+				<p>May your life be at ease</p>
+				<p>May all your wishes come true</p>
+				<p>Remember</p>
+				<p>your ambitions</p>
+				<p>you live as a free bird...</p>
+				<p>flying in the blue sky</p>
+				<p>Now things are different...</p>
+				<p>real story of your life</p>
+				<p>is just about to begin</p>
+				<p>indeed..</p>
+				<p>this life is not easy as we thought</p>
+				<p>but...</p>
+				<p>don't worry</p>
+				<p>don't be afraid</p>
+				<p>because...</p>
+				<p>you are not alone in this world</p>
+				<p>because...</p>
+				<p>this year will be better</p>
+				<p>and I hope</p>
+				<p>you'll find...</p>
+				<p>happiness along the way</p>
+				<p>keep your spirits up</p>
+				<p>enjoy every single moment...</p>
+				<p>that you experiecne today</p>
+				<p>fill it with your most beautiful smile</p>
+				<p>and make it the best memory..</p>
+				<p>lastly...</p>
+				<p>I'd like to wish you one more time</p>
+				<p>a very happy birthday</p>
 			</div>
 		</div>
 		<div class="navbar navbar-fixed-bottom">
 			<div class="row">
 				<div class="col-md-6 text-center col-md-offset-3">
-					<button class="btn btn-primary" id="turn_on">Nyalakan Lampu</button>
-					<button class="btn btn-primary" id="play">Setel Lagu</button>
-					<button class="btn btn-primary" id="bannar_coming">Ayo Mulai</button>
-					<button class="btn btn-primary" id="balloons_flying">Terbangkan Balon</button>
-					<button class="btn btn-primary" id="cake_fadein">Kue Buat Kamu</button>
-					<button class="btn btn-primary" id="light_candle">Nyalakan Lilin</button>
-					<button class="btn btn-primary" id="wish_message">Selamat Ulang Tahun!</button>
-					<button class="btn btn-primary" id="story">Pesan untukmu &#10084;</button>
-					<button class="btn btn-primary" id="blow_candle">Tiup Lilin</button>
-					<button class="btn btn-primary" id="finish_btn">Selesai</button>
+					<button class="btn btn-primary" id="turn_on">Turn On Lights</button>
+					<button class="btn btn-primary" id="play">Play Music</button>
+					<button class="btn btn-primary" id="bannar_coming">Let's Decorate</button>
+					<button class="btn btn-primary" id="balloons_flying">Fly With Balloons</button>
+					<button class="btn btn-primary" id="cake_fadein">Most Delicious Cake Ever</button>
+					<button class="btn btn-primary" id="light_candle"> Light Candle</button>
+					<button class="btn btn-primary" id="wish_message">Happy Birthday</button>
+					<button class="btn btn-primary" id="story">A mesage for you</button>
+					<!-- <button class="btn btn-primary" id="cake_cut">Lrt's Cut the Cake</button> -->
 				</div>
 			</div>
+			<!-- <div class="col-md-2">
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-2">
+			</div> -->
 		</div>
 
-	</div>
 
-	<div class="container finish">
-		<h4 class="text-center">Made by &#10084; in Tangerang</h4>
 	</div>
 </body>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/less.min.js"></script>
-<script src="./js/effect.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="effect.js"></script>
 <script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','./js/analytics.js','ga');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-58229732-1', 'auto');
-	ga('send', 'pageview');
-
-	if('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('serviceWorker.js')
-		.then(function() {
-			console.log('Service Worker Registered');
-		});
-	}
+  ga('create', 'UA-58229732-1', 'auto');
+  ga('send', 'pageview');
 
 </script>
 </html>
