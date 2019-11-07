@@ -2,7 +2,7 @@
     "name": "Yeppy's Portfolio",
     "short_name": "Portfolio",
     "description": "Portfolio of Yeppy Mangun Puspitajudin",
-    "start_url": "/index.html",
+    "start_url": "index.html",
     "display": "standalone",
     "background_color": "#00897B",
     "theme_color": "#00897B",
