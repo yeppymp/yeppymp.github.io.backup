@@ -1,0 +1,55 @@
+#nav {
+    position: fixed;
+    z-index: 9999;
+}
+#body-content {
+    min-height: 100vh;
+}
+#home, #code {
+    padding-top: 64px;
+    min-height: 100vh;
+}
+
+#home {
+    background-image: url(../images/yeppy.png);
+    background-repeat: no-repeat;
+    background-position-y: -5vh;
+    background-size: 80vh auto;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    #home {
+        background-image: unset;
+    }
+}
+
+#home .row {
+    width: 100%;
+}
+
+#code {
+    padding: 72px 0 32px 0;
+}
+
+.sidenav-trigger {
+    font-size: 1.5rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 90vw;
+}
+
+.container > .row {
+    margin: 0;
+}
+
+.container > .row > .col {
+    padding: 0;
+}

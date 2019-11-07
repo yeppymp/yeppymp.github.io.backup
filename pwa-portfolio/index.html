@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="My Portfolio">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#00897B"/>
+    <title>My Portfolio</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <nav class="blue-grey darken-4 lighten-1" id="nav" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo" id="logo-container">Portfolio</a>
+            <a href="#" class="sidenav-trigger" data-target="nav-mobile">☰</a>
+
+            <ul class="topnav right hide-on-med-and-down"></ul>
+            <ul class="sidenav" id="nav-mobile"></ul>
+        </div>
+    </nav>
+    
+    <div class="container" id="body-content"></div>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/nav.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then(function () {
+                        console.log("ServiceWorker registered successfully");
+                    })
+                    .catch(function () {
+                        console.log("Failed to register the ServiceWorker");
+                    });
+            });
+        } else {
+            console.log("ServiceWorker is not supported in this browser.");
+        }
+    </script>
+</body>
+
+</html>
