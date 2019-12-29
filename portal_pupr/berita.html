@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="icon" href="assets/images/favicon.jpg">
+    <title>Kementerian Pekerjaan Umum dan Perumahan Rakyat</title>
+
+    <link rel="stylesheet" href="assets/css/buefy.min.css">
+    <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div id="app" class="p-news fixed" v-cloak>
+
+        <!-- Start Navbar -->
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation" v-if="!others_open">
+            <div class="container">
+                <transition name="fade">
+                    <div class="navbar-brand" v-if="!menu_open">
+                        <a class="navbar-item" href="index.html">
+                            <img src="assets/images/logo-blue.png" width="350">
+                        </a>
+
+                        <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                            data-target="navbar">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a> -->
+                    </div>
+                </transition>
+
+                <div id="navbar" class="navbar-menu">
+                    <transition name="fade">
+                        <div class="navbar-start" v-if="menu_open">
+                            <template v-for="m in menus">
+                                <template v-if="!m.section">
+                                    <a :href="m.url" class="navbar-item" v-if="!m.has_dropdown">
+                                        <span>{{ m.text }}</span>
+                                    </a>
+                                    <div class="navbar-item has-dropdown is-hoverable" v-else>
+                                        <a class="navbar-link">
+                                            {{ m.text }}
+                                        </a>
+
+                                        <div class="navbar-dropdown">
+                                            <a v-for="mi in m.menu_items" class="navbar-item" :href="mi.url">
+                                                {{ mi.text }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </template>
+                                <a class="navbar-item" @click="toggleOther"
+                                    v-if="m.section && current_page != 'p-news'">
+                                    <span>{{ m.text }}</span>
+                                </a>
+                            </template>
+                        </div>
+                    </transition>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="latest_news has-text-black" href="berita.html" :class="{ 'show': !menu_open }">
+                                    Berita Terkini
+                                </a>
+                                <div class="navbar-item has-dropdown is-hoverable publication"
+                                    :class="{ 'show': !menu_open }">
+                                    <a class="navbar-link">
+                                        Publikasi
+                                    </a>
+
+                                    <div class="navbar-dropdown is-right">
+                                        <a class="navbar-item">Berita PUPR</a>
+                                        <a class="navbar-item" v-for="b in berita_unit_organisasi" :href="b.url">
+                                            {{ b.text }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <a>
+                                    <transition name="fade">
+                                        <div class="hamburger" :class="{ 'bg-transparent': menu_open }" v-if="menu_open"
+                                            @click="toggleMenu">
+                                            <b-icon pack="fa" icon="long-arrow-left" size="is-medium">
+                                            </b-icon>
+                                        </div>
+                                        <div class="hamburger" v-else @click="toggleMenu">
+                                            <span class="bar"></span>
+                                            <span class="bar"></span>
+                                            <span class="bar"></span>
+                                        </div>
+                                    </transition>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <!-- Minibar -->
+        <div class="minibar">
+            <div class="container">
+                <nav class="level">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item">
+                            <div class="field search">
+                                <div class="control has-icons-right">
+                                    <input class="input" type="text" v-model="search_text" placeholder="Cari berita...">
+                                    <span class="icon is-small is-right">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                        <p class="level-item socmed" v-for="s in socmed">
+                            <a :href="s.url" target="_blank">
+                                <img :src="s.image_url" :alt="s.url">
+                            </a>
+                        </p>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Minibar -->
+
+        <!-- Content -->
+        <div class="container ctn" v-if="!search">
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <section class="section highlight"
+                        :style="`background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,.5) 100%), url(${news[0].image_url})`">
+                        <a :href="`baca_berita.html?id=${news[0].id}`" class="line">
+                            <h1 class="subtitle">{{ news[0].publish }}</h1>
+                            <h2 class="title">
+                                {{ news[0].title }}
+                            </h2>
+                        </a>
+                    </section>
+
+                    <section class="section video">
+                        <h4 class="sec-title is-uppercase has-text-weight-bold">Berita PUPR</h4>
+                        <div class="grid">
+                            <div class="card" v-for="(v, i) in news" v-if="i != 0">
+                                <div class="card-image">
+                                    <figure class="image is-16by9">
+                                        <img :src="v.image_url" :alt="v.title">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <small>
+                                                <p class="subtitle is-6">{{ v.publish }}</p>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="content">
+                                        <a :href="`baca_berita.html?id=${v.id}`">
+                                            <h5 class="title">{{ v.title }}</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <b-pagination :total="pagination_news.total" :current.sync="pagination_news.current"
+                            :range-before="pagination_news.rangeBefore" :range-after="pagination_news.rangeAfter"
+                            :order="pagination_news.order" :size="pagination_news.size"
+                            :simple="pagination_news.isSimple" :rounded="pagination_news.isRounded"
+                            :per-page="pagination_news.perPage" aria-next-label="Selanjutnya"
+                            aria-previous-label="Sebelumnya" icon-pack="fa">
+                        </b-pagination>
+                    </section>
+                </div>
+
+                <div class="column latest_news">
+                    <h4 class="sec-title is-uppercase has-text-weight-bold">Berita Terkini</h4>
+                    <br>
+                    <article class="media" v-for="n in news">
+                        <figure class="media-left">
+                            <p class="image is-96x96">
+                                <img :src="n.image_url">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="time">
+                                    <small>{{ n.publish }}</small>
+                                </p>
+                                <p class="title">
+                                    <a :href="`baca_berita.html?id=${n.id}`">{{ n.title }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <!-- End Content -->
+
+        <!-- Search -->
+        <div class="container search" v-if="search">
+            <div v-if="filteredNews.length == 0">
+                <br>
+                <h4 class="is-italic has-text-grey-light has-text-centered">Pencarian tidak ditemukan</h4>
+                <br>
+            </div>
+            <div v-else>
+                <h4 class="has-text-weight-bold has-text-centered">Hasil Pencarian</h4>
+                <br>
+                <div class="grid">
+                    <div class="card" v-for="(v, i) in filteredNews" v-if="i != 0">
+                        <div class="card-image">
+                            <figure class="image is-16by9">
+                                <img :src="v.image_url" :alt="v.title">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <small>
+                                        <p class="subtitle is-6">{{ v.publish }}</p>
+                                    </small>
+                                </div>
+                            </div>
+    
+                            <div class="content">
+                                <a :href="`berita.html?id=${v.id}`">
+                                    <h5 class="title">{{ v.title }}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Search -->
+
+        <div class="o-footer">
+            <div class="container">
+                <div class="columns">
+                    <div class="column" v-for="f in footers">
+                        <h4 class="f-title">{{ f.title }}</h4>
+                        <ul>
+                            <li v-for="l in f.lists">
+                                <a :href="l.url">{{ l.text }}</a>
+                            </li>
+                            <li v-if="f.type == 'contact'">
+                                <img title="Web Counter"
+                                    src="https://counter9.freecounter.ovh/private/freecounterstat.php?c=hx9y7n8sbttuuuftt9z8237d5w4n9nwc"
+                                    alt="Web Counter">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footers">
+            <div class="container is-flex">
+                <p>
+                    <small>
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script>
+                        Yeppy Mangun Puspitajudin
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/vue-prod.js"></script>
+    <script src="assets/js/buefy.min.js"></script>
+    <script src="assets/js/bulma-carousel.min.js"></script>
+    <script src="assets/data/db.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

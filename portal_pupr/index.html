@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="icon" href="assets/images/favicon.jpg">
+    <title>Kementerian Pekerjaan Umum dan Perumahan Rakyat</title>
+
+    <link rel="stylesheet" href="assets/css/buefy.min.css">
+    <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div id="app" class="p-home" v-cloak>
+        <!-- Start Hero Carousel -->
+        <section class="hero is-medium has-carousel">
+            <div id="carousel-demo" class="hero-carousel">
+                <div v-for="(h, i) in news_highlight" class="item" :class="`item-${i+1}`"
+                    :style="`background-image: url(${h.image_url})`">
+                    <div>
+                        <div class="container">
+                            <a :href="`baca_berita.html?id=${i+1}`">
+                                <h2 class="is-size-3 has-text-white has-text-weight-bold"
+                                    :class="{ 'default-state': default_state }">
+                                    {{ h.title }}
+                                </h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Hero Carousel -->
+
+        <!-- Start Navbar -->
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation" v-if="!others_open">
+            <div class="container">
+                <transition name="fade">
+                    <div class="navbar-brand" v-if="!menu_open">
+                        <a class="navbar-item" href="index.html">
+                            <img src="assets/images/logo-white.png" width="350">
+                        </a>
+
+                        <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                            data-target="navbar">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a> -->
+                    </div>
+                </transition>
+
+                <div id="navbar" class="navbar-menu">
+                    <transition name="fade">
+                        <div class="navbar-start" v-if="menu_open">
+                            <template v-for="m in menus">
+                                <template v-if="!m.section">
+                                    <a :href="m.url" class="navbar-item" v-if="!m.has_dropdown">
+                                        <span>{{ m.text }}</span>
+                                    </a>
+                                    <div class="navbar-item has-dropdown is-hoverable" v-else>
+                                        <a class="navbar-link">
+                                            {{ m.text }}
+                                        </a>
+
+                                        <div class="navbar-dropdown">
+                                            <a v-for="mi in m.menu_items" class="navbar-item" :href="mi.url">
+                                                {{ mi.text }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </template>
+                                <a class="navbar-item for-desktop" @click="toggleOther" v-else>
+                                    <span>{{ m.text }}</span>
+                                </a>
+                            </template>
+                        </div>
+                    </transition>
+
+                    <div class="navbar-end" :class="{ 'bg-white': menu_open }">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="pupr-tv" href="http://itv.pu.go.id/" target="_blank"
+                                    :class="{ 'show': !menu_open }">
+                                    <img src="assets/images/pupr_tv.png" alt="PUPR TV">
+                                </a>
+                                <a>
+                                    <transition name="fade">
+                                        <div class="hamburger" v-if="menu_open" @click="toggleMenu">
+                                            <b-icon pack="fa" icon="long-arrow-left" size="is-medium">
+                                            </b-icon>
+                                        </div>
+                                        <div class="hamburger" v-else @click="toggleMenu">
+                                            <span class="bar"></span>
+                                            <span class="bar"></span>
+                                            <span class="bar"></span>
+                                        </div>
+                                    </transition>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <!-- Start News -->
+        <div class="container f-news for-desktop">
+            <div class="news">
+                <b-button size="is-small" class="close" :class="{ 'close-news': news_open }" @click="closeNews">
+                    <b-icon pack="fa" icon="times">
+                    </b-icon>
+                </b-button>
+                <b-tabs v-model="activeTab" @input="openNews">
+                    <b-tab-item label="Berita Terkini">
+                        <article class="media" v-for="n in news.slice(0, 5)">
+                            <figure class="media-left">
+                                <p class="image is-96x96">
+                                    <img :src="n.image_url">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="time">
+                                        <small>{{ n.publish }}</small> &nbsp; | &nbsp;
+                                        <small>
+                                            <b-icon pack="fa" icon="eye" size="is-small">
+                                            </b-icon>
+                                            {{ n.seen }}
+                                        </small>
+                                    </p>
+                                    <p class="title">
+                                        <a :href="`baca_berita.html?id=${n.id}`">{{ n.title }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </b-tab-item>
+
+                    <b-tab-item label="Berita Video">
+                        <article class="media" v-for="n in news_video.slice(0, 5)">
+                            <figure class="media-left">
+                                <p class="image is-96x96" v-html="n.yt_frame">
+                                </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="time">
+                                        <small>{{ n.publish }}</small>
+                                    </p>
+                                    <p class="title">
+                                        {{ n.title }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </b-tab-item>
+
+                    <b-tab-item label="Pengumuman">
+                        <article class="media" v-for="n in announcements.slice(0, 5)">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="time">
+                                        <small>{{ n.publish }}</small>
+                                    </p>
+                                    <p class="title">
+                                        <a href="">{{ n.text }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </b-tab-item>
+
+                    <div class="see-news">
+                        <b-tooltip label="Lihat Berita" type="is-dark">
+                            <a href="berita.html" class="button" v-if="news_open" @click="closeNews">
+                                <b-icon pack="fa" icon="newspaper-o" size="is-small">
+                                </b-icon>
+                            </a>
+                        </b-tooltip>
+                    </div>
+                </b-tabs>
+            </div>
+        </div>
+        <!-- End News -->
+
+        <!-- Others Menu -->
+        <transition name="slide">
+            <section class="section others for-desktop" :class="{ 'no-pointer': !others_open, 'show': others_open }">
+                <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+                    <div class="container">
+                        <transition name="fade">
+                            <div class="navbar-brand">
+                                <a class="navbar-item" href="">
+                                    <img src="assets/images/logo-blue.png" width="350">
+                                </a>
+                            </div>
+                        </transition>
+
+                        <div id="navbar" class="navbar-menu">
+                            <div class="navbar-end">
+                                <div class="navbar-item">
+                                    <div class="buttons">
+                                        <a class="close-others" @click="toggleOther">
+                                            <b-icon pack="fa" icon="times" size="is-medium">
+                                            </b-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div id="carousel-other" class="other-carousel">
+                    <div class="item">
+                        <div class="container">
+                            <b-tabs v-model="activeTab" type="is-boxed">
+                                <b-tab-item label="Info Umum">
+                                    <div class="grid">
+                                        <a v-for="i in info_umum" :href="i.url">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="media is-flex">
+                                                        <div class="media-left">
+                                                            <figure class="image">
+                                                                <img :src="i.image_url" :alt="i.title">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="media-content">
+                                                            <p class="subtitle is-6">{{ i.title }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </b-tab-item>
+
+                                <b-tab-item label="Info Pendukung">
+                                    <div class="grid">
+                                        <a v-for="i in info_pendukung" :href="i.url">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="media is-flex">
+                                                        <div class="media-left">
+                                                            <figure class="image">
+                                                                <img :src="i.image_url" :alt="i.title">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="media-content">
+                                                            <p class="subtitle is-6">{{ i.title }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </b-tab-item>
+
+                                <b-tab-item label="Agenda Kegiatan">
+                                    <div class="grid is-2-column">
+                                        <a v-for="i in agenda" :href="i.url">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="media is-flex">
+                                                        <div class="media-left">
+                                                            <figure class="image">
+                                                                <img :src="i.image_url" :alt="i.title">
+                                                            </figure>
+                                                        </div>
+                                                        <div class="media-content">
+                                                            <p class="subtitle is-6">{{ i.title }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </b-tab-item>
+
+                                <b-tab-item label="LPSE PUPR" class="lpse">
+                                    <a v-for="b in db_lpse.buttons" :href="b.url" class="button">
+                                        {{ b.text }}
+                                    </a>
+                                    <br><br>
+                                    <table class="table is-striped is-fullwidth">
+                                        <thead>
+                                            <tr>
+                                                <th><abbr title="Number">No</abbr></th>
+                                                <th>Nama Paket Yang Akan Dilelangkan</th>
+                                                <th><abbr title="Harga Perkiraan Sendiri">HPS</abbr></th>
+                                                <th>Tahap Jadwal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(d, i) in db_lpse.table">
+                                                <th>{{ i+1 }}</th>
+                                                <td>{{ d.package }}</td>
+                                                <td>Rp. {{ d.hps }}</td>
+                                                <td>{{ d.schedule }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </b-tab-item>
+                            </b-tabs>
+                        </div>
+                    </div>
+                    <div class="item o-footer">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column" v-for="f in footers">
+                                    <h4 class="f-title">{{ f.title }}</h4>
+                                    <ul>
+                                        <li v-for="l in f.lists">
+                                            <a :href="l.url">{{ l.text }}</a>
+                                        </li>
+                                        <li v-if="f.type == 'contact'">
+                                            <img title="Web Counter"
+                                                src="https://counter9.freecounter.ovh/private/freecounterstat.php?c=hx9y7n8sbttuuuftt9z8237d5w4n9nwc"
+                                                alt="Web Counter">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footers">
+                    <div class="container is-flex">
+                        <div class="slider-pagination container">
+                            <div class="slider-page is-active" data-index="0"></div>
+                            <div class="slider-page" data-index="1"></div>
+                        </div>
+                        <p>
+                            <small>
+                                &copy;
+                                <script>document.write(new Date().getFullYear())</script>
+                                Yeppy Mangun Puspitajudin
+                            </small>
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+        </transition>
+        <!-- End Others Menu -->
+
+        <section class="section for-tablet-mobile">
+            <h4 class="subtitle has-text-grey-light is-uppercase">Berita Terkini</h4>
+            <article class="media" v-for="n in news.slice(0, 5)">
+                <figure class="media-left">
+                    <p class="image is-96x96">
+                        <img :src="n.image_url">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p class="time">
+                            <small>{{ n.publish }}</small> &nbsp; | &nbsp;
+                            <small>
+                                <b-icon pack="fa" icon="eye" size="is-small">
+                                </b-icon>
+                                {{ n.seen }}
+                            </small>
+                        </p>
+                        <p class="title">
+                            <a :href="`baca_berita.html?id=${n.id}`">{{ n.title }}</a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="section for-tablet-mobile">
+            <h4 class="subtitle has-text-grey-light is-uppercase">Berita Video</h4>
+            <article class="media" v-for="n in news_video.slice(0, 5)">
+                <figure class="media-left">
+                    <p class="image is-96x96" v-html="n.yt_frame">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p class="time">
+                            <small>{{ n.publish }}</small>
+                        </p>
+                        <p class="title">
+                            {{ n.title }}
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="section for-tablet-mobile">
+            <h4 class="subtitle has-text-grey-light is-uppercase">Pengumuman</h4>
+            <article class="media" v-for="n in announcements.slice(0, 5)">
+                <div class="media-content">
+                    <div class="content">
+                        <p class="time">
+                            <small>{{ n.publish }}</small>
+                        </p>
+                        <p class="title">
+                            <a href="">{{ n.text }}</a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <div class="o-footer for-tablet-mobile">
+            <div class="container">
+                <div class="columns">
+                    <div class="column" v-for="f in footers">
+                        <h4 class="f-title">{{ f.title }}</h4>
+                        <ul>
+                            <li v-for="l in f.lists">
+                                <a :href="l.url">{{ l.text }}</a>
+                            </li>
+                            <li v-if="f.type == 'contact'">
+                                <img title="Web Counter"
+                                    src="https://counter9.freecounter.ovh/private/freecounterstat.php?c=hx9y7n8sbttuuuftt9z8237d5w4n9nwc"
+                                    alt="Web Counter">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footers for-tablet-mobile">
+            <div class="container is-flex">
+                <p>
+                    <small>
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script>
+                        Yeppy Mangun Puspitajudin
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/vue-prod.js"></script>
+    <script src="assets/js/buefy.min.js"></script>
+    <script src="assets/js/bulma-carousel.min.js"></script>
+    <script src="assets/data/db.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
